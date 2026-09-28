@@ -26,7 +26,7 @@ import (
 )
 
 // Version of the torbridge release (torbridge and the installer packages).
-const Version = "1.4.0"
+const Version = "1.4.1"
 
 type Source struct {
 	Name string

@@ -57,7 +57,8 @@ try {
     Step 2 "Unpacking Tor to $Root"
     if (Get-Service tor -ErrorAction SilentlyContinue) { Stop-Service tor -Force }
     foreach ($d in '', 'state', 'logs') { New-Item -ItemType Directory -Force -Path (Join-Path $Root $d) | Out-Null }
-    tar.exe -xzf $bundle.FullName -C $Root
+    # Full path: a GNU tar earlier in PATH (Git Bash, MSYS2) takes "C:" for a remote host.
+    & "$env:SystemRoot\System32\tar.exe" -xzf $bundle.FullName -C $Root
     if ($LASTEXITCODE) { throw "cannot unpack $($bundle.Name)" }
     Copy-Item "$here\torbridge.exe" $exe -Force
     # 1.3 had a separate bridgestat tool and history file; keep the collected history.
